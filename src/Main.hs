@@ -1,4 +1,4 @@
--- for each word argument, print all anagrams the preserve consonant/vowel
+-- for each word argument, print all anagrams that preserve the consonant/vowel
 -- structure (e.g. "putnam" yields both "manput" and "tampun" among others)
 
 import Data.List
