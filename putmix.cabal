@@ -5,7 +5,7 @@ license-file:   LICENSE
 author:         dan corson <danl@alum.mit.edu>
 synopsis:       print all anagrams preserving consonant/vowel structure
 build-type:     Simple
-build-depends:  base, haskell98
+build-depends:  base, containers
 
 executable:     putmix
 main-is:        Main.hs

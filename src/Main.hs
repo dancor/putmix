@@ -2,9 +2,15 @@
 -- structure (e.g. "putnam" yields both "manput" and "tampun" among others)
 
 import Data.List
-import Util
 import qualified Data.Map as M
 import System.Environment
+
+perms :: [a] -> [[a]]
+perms [] = [[]]
+perms xs = [x:zs | (x,ys) <- expose xs, zs <- perms ys] where
+  expose xs = step [] xs
+  step _  []     = []
+  step ys (x:xs) = (x,ys++xs):step (ys++[x]) xs
 
 sectionOn :: (Ord b) => (a -> b) -> [a] -> ([b], M.Map b [a])
 sectionOn f xs = (map f xs, M.fromListWith (++) [(f x, [x]) | x <- xs])
