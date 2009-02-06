@@ -8,6 +8,7 @@ import System.Environment
 sectionOn :: (Ord b) => (a -> b) -> [a] -> ([b], M.Map b [a])
 sectionOn f xs = (map f xs, M.fromListWith (++) [(f x, [x]) | x <- xs])
 
+unsection :: (Ord t) => [t] -> M.Map t [a] -> [a]
 unsection [] sectMap = []
 unsection (i:is) sectMap = let
   Just (x:xs) = M.lookup i sectMap
