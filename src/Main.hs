@@ -5,13 +5,6 @@ import Data.List
 import qualified Data.Map as M
 import System.Environment
 
-perms :: [a] -> [[a]]
-perms [] = [[]]
-perms xs = [x:zs | (x,ys) <- expose xs, zs <- perms ys] where
-  expose xs = step [] xs
-  step _  []     = []
-  step ys (x:xs) = (x,ys++xs):step (ys++[x]) xs
-
 sectionOn :: (Ord b) => (a -> b) -> [a] -> ([b], M.Map b [a])
 sectionOn f xs = (map f xs, M.fromListWith (++) [(f x, [x]) | x <- xs])
 
@@ -23,8 +16,8 @@ unsection (i:is) sectMap = let
 shufs :: [Char] -> [[Char]]
 shufs wd = let
   (sectOrd, sectMap) = sectionOn (`elem` "aeiou") wd
-  -- we could actually write a more efficient nub . perms, but who cares
-  sectLs = sequence . M.elems $ M.map (nub . perms) sectMap
+  -- we could actually write a more efficient nub . permutations, but who cares
+  sectLs = sequence . M.elems $ M.map (nub . permutations) sectMap
   in map (unsection sectOrd . M.fromList . zip [False, True]) sectLs
 
 main :: IO ()
